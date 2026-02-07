@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+    <nav>
+        {%if session.get('logged_in') == True %}
+        <a href="{{url_for('logout')}}"><button>CERRAR SESION</button></a>
+        {%else%}
+        <a href="{{url_for('login')}}"><button>LOGIN</button></a>
+        <a href="{{url_for('register')}}"><button>REGISTER</button></a>
+        {%endif%}
+    </nav>
+    {%with messages = get_flashed_messages(with_categories=True)%}
+    {%if messages%}
+    {%for category, message in messages%}
+    <ul style="color: {%if category == 'danger'%} red {%elif category == 'success'%}green{%endif%};">
+        <li>{{message}}</li>
+    </ul>
+    {%endfor%}
+    
+    {%endif%}
+    {%endwith%}
+    {%block content%}
+    
+    {%endblock%}
+</body>
+</html>
